@@ -1,0 +1,36 @@
+<% layout('layouts/boilerplate')%>
+
+<div class="row">
+    <h1 class="text-center">New House</h1>
+    <div class="col-6 offset-3">
+        <form action="/houses" method="POST" novalidate class="need-validation">
+            <div class="mb-3">
+                <label class="form-label" for="name">House Owner Name</label>
+                <input class="form-control" type="text" id="name" name="house[name]" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="address">Address</label>
+                <textarea class="form-control" type="text" id="address" name="house[address]" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="image">Image Url</label>
+                <input class="form-control" type="text" id="image" name="house[image]">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="rent">Rent per month</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="rent-label">$</span>
+                    <input type="number" step="any" min="0" class="form-control" id="rent" placeholder="0.00" aria-label="rent" aria-describedby="rent-label" name="house[rent]" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" type="text" id="description" name="house[description]"></textarea>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Add House</button>
+            </div>
+        </form>
+    </div>
+</div>

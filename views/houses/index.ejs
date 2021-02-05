@@ -1,0 +1,22 @@
+<% layout('layouts/boilerplate')%>
+
+<h1 class="mb-3">All Houses On Rent</h1>
+<% for (let house of houses){%>
+<div class="card">
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <img class="img-fluid" alt="" src="<%=house.image%>">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title"><%= house.name %> </h5>
+                <p class="card-text"><%= house.description %></p>
+                <p class="card-text">
+                    <small class="text-muted"><%= house.address%></small>
+                </p>
+                <a class="btn btn-primary" href="/houses/<%=house._id%>">Show Details</a>
+            </div>
+        </div>
+    </div>
+</div>
+<% }%>
