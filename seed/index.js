@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const House = require('../models/house');
 const city = require('./city');
 
-const db_url = process.env.DB_URL || 'mongodb://localhost:27017/houseOnRent';
-
+//const db_url = process.env.DB_URL || 'mongodb://localhost:27017/houseOnRent';
+const db_url = 'mongodb+srv://house-renting-app-user1:0l4MfJORGRTIY9yO@cluster0.indgh.mongodb.net/houseRentingApplication?retryWrites=true&w=majority'
 mongoose.connect(db_url, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true});
 
 const db = mongoose.connection;
@@ -45,16 +45,22 @@ const sample = (array) => array[Math.floor(Math.random()*array.length)];
 
 const seedDB = async() => {
   await House.deleteMany({});
-  for(let i=0; i<20;i++){
+  for(let i=0; i<100;i++){
     const random1000 = Math.floor(Math.random() * 1000);
     const price = Math.floor(Math.random()*10000) + 10000;
     const house = new House({
-      owner: '6018e2e5f82ba30e48e47b41',
+      owner: '601d66831f39cf4bac825c2b',
       name: sample(nameArray),
       address: `${city[random1000].city}, ${city[random1000].state}`,
+      geometry: {
+        type: "Point",
+        coordinates: [
+            city[random1000].longitude,
+            city[random1000].latitude,
+        ]
+    },
       rent: price,
-      image: 'https://source.unsplash.com/collection/483251',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!'
+      description: 'This is a dummy house for testing purpose!!!  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!'
     });
     await house.save();
   }

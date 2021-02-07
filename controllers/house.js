@@ -1,8 +1,11 @@
 const House = require('../models/house');
-
+const { cloudinary } = require("../cloudinary");
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 module.exports.showAllHouses = async (req,res) =>{
-  const houses = await House.find({});
+  const houses = await House.find({}).populate('popupText');
   res.render('houses/index',{houses});
 };
 
@@ -11,7 +14,13 @@ module.exports.renderNewHouseForm = (req,res) =>{
 };
 
 module.exports.createHouse = async (req,res) =>{
+  const geoData = await geocoder.forwardGeocode({
+    query: req.body.house.location,
+    limit: 1
+  }).send();
   const house = new House(req.body.house);
+  house.geometry = geoData.body.features[0].geometry;
+  house.images = req.files.map(f => ({url: f.path,filename: f.filename}));
   house.owner = req.user._id;
   await house.save();
   req.flash('success','Successfully created a new House');
@@ -36,7 +45,16 @@ module.exports.renderUpdateHouseForm = async (req,res)=>{
 
 module.exports.updateHouse = async (req,res) =>{
   const {id} = req.params;
-  await House.findByIdAndUpdate(id,{...req.body.house});
+  const imgs = req.files.map(f => ({url: f.path,filename: f.filename}));
+  const house = await House.findByIdAndUpdate(id,{...req.body.house,$push: { "images": { $each: imgs}}});
+  //house.images.push(...imgs);
+  //await house.save();
+  if (req.body.deleteImages) {
+    for (let filename of req.body.deleteImages) {
+        await cloudinary.uploader.destroy(filename);
+    }
+    await house.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
+  }
   req.flash('success','Successfully updated the House');
   res.redirect(`/houses/${id}`);
 };

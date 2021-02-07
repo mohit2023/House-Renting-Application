@@ -3,11 +3,13 @@ const router = express.Router();
 const wrapAsync = require('../utils/wrapAsync');
 const {isLoggedIn, validateHouse, isHouseOwner} = require('../middleware');
 const house = require('../controllers/house');
-
+const multer = require('multer');
+const { storage } = require('../cloudinary');
+const upload = multer({storage});
 
 router.route('/')
   .get(wrapAsync(house.showAllHouses))
-  .post(isLoggedIn, validateHouse, wrapAsync(house.createHouse));
+  .post(isLoggedIn,upload.array('image'), validateHouse, wrapAsync(house.createHouse));
 
 router.get('/new',isLoggedIn,house.renderNewHouseForm);
 
@@ -15,7 +17,7 @@ router.get('/:id/edit',isLoggedIn,isHouseOwner, wrapAsync(house.renderUpdateHous
 
 router.route('/:id')
   .get(wrapAsync(house.showHouse))
-  .put(isLoggedIn,isHouseOwner, validateHouse, wrapAsync(house.updateHouse))
+  .put(isLoggedIn,isHouseOwner,upload.array('image'), validateHouse, wrapAsync(house.updateHouse))
   .delete(isLoggedIn,isHouseOwner, wrapAsync(house.deleteHouse));
 
 

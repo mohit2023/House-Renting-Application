@@ -4,10 +4,10 @@ module.exports.houseSchema = Joi.object({
   house: Joi.object({
     name: Joi.string().required(),
     address: Joi.string().required(),
-    image: Joi.string().allow(''),
     description: Joi.string().allow(''),
     rent: Joi.number().required().min(0)
-  }).required()
+  }).required(),
+  deleteImages: Joi.array()
 });
 
 module.exports.reviewSchema = Joi.object({
