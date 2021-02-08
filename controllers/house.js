@@ -15,7 +15,7 @@ module.exports.renderNewHouseForm = (req,res) =>{
 
 module.exports.createHouse = async (req,res) =>{
   const geoData = await geocoder.forwardGeocode({
-    query: req.body.house.location,
+    query: req.body.house.address,
     limit: 1
   }).send();
   const house = new House(req.body.house);
