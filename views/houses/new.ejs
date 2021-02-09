@@ -1,8 +1,7 @@
 <% layout('layouts/boilerplate')%>
 
 <div class="row">
-    <h1 class="text-center">New House</h1>
-    <div class="col-6 offset-3">
+    <div class="col-sm-6 offset-sm-3">
         <form action="/houses" method="POST" novalidate class="need-validation" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label" for="name">House Owner Name</label>
@@ -16,14 +15,14 @@
             <div class="mb-3">
                 <label class="form-label" for="rent">Rent per month</label>
                 <div class="input-group">
-                    <span class="input-group-text" id="rent-label">$</span>
+                    <span class="input-group-text" id="rent-label">&#8377;</span>
                     <input type="number" step="any" min="0" class="form-control" id="rent" placeholder="0.00" aria-label="rent" aria-describedby="rent-label" name="house[rent]" required>
                 </div>
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="description">Description</label>
-                <textarea class="form-control" type="text" id="description" name="house[description]"></textarea>
+                <textarea class="form-control" type="text" id="description" name="house[description]" rows="3"></textarea>
             </div>
 
             <div class="mb-3">
@@ -37,7 +36,7 @@
             </div>
 
             <div class="mb-3">
-                <button class="btn btn-success">Add House</button>
+                <button class="btn btn-success w-100">Add House</button>
             </div>
         </form>
     </div>

@@ -1,18 +1,18 @@
 <% layout('layouts/boilerplate')%>
 <link rel="stylesheet" href="/stylesheets/star.css">
 <div class="row">
-    <div class="col-6">
+    <div class="col-md-6">
 
         <div id="houseCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <% house.images.forEach((img, i) => {  %>
                 <div class="carousel-item <%= i === 0 ? 'active' : ''%>">
-                    <img src="<%= img.url%>" class="d-block w-100" alt="">
+                    <img src="<%= img.url%>" class="d-block img-fit" alt="">
                 </div>
                 <% }) %>
                 <% if(house.images.length == 0){ %>
                     <div class="carousel-item active">
-                        <img src="/images/noHouseImg.png" class="d-block w-100" alt="">
+                        <img src="/images/noHouseImg.png" class="d-block img-fit" alt="">
                     </div>  
                 <% } %>  
             </div>
@@ -31,30 +31,30 @@
 
         <div class="card mb-3">
             <div class="card-body">
-                <h5 class="card-title"><%= house.name%></h5>
+                <h5 class="card-title">House Owner's Name: <%= house.name%></h5>
                 <p class="card-text"><%= house.description%></p>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item text-muted"><%= house.address%></li>
-                <li class="list-group-item">$<%= house.rent%>/month</li>
+                <li class="list-group-item text-muted">Rent per month: &#8377;<%= house.rent%></li>
+                <li class="list-group-item">Address: <%= house.address%></li>
             </ul>
             <% if(currentUser && house.owner.equals(currentUser._id)){ %> 
-                <div class="card-body">
+                <div class="card-body d-flex justify-content-between">
                     <a class="card-link btn btn-info" href="/houses/<%=house._id%>/edit">Edit</a>
                     <form class="d-inline" action="/houses/<%=house._id%>?_method=DELETE" method="POST">
-                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-danger">&#128465;Delete</button>
                     </form>
                 </div>
             <% } %> 
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-md-6">
 
-        <div id='map' style='width: 100%; height: 300px;'></div>
+        <div id='map' class="mb-4"></div>
 
         <% if(currentUser){ %> 
-            <h2>Leave a Review</h2>
-            <form action="/houses/<%= house._id %>/reviews" method="POST" novalidate class="need-validation mb-5">
+            <h2 class="mb-3">Leave a Review</h2>
+            <form action="/houses/<%= house._id %>/reviews" method="POST" novalidate class="need-validation mb-5 shadow p-3">
                 <fieldset class="starability-basic">
                     <input type="radio" id="first-rate1" name="review[rating]" value="1" />
                     <label for="first-rate1" title="Terrible">1 star</label>
@@ -70,11 +70,10 @@
                         aria-label="No rating." />
                 </fieldset>
                 <div class="mb-3">
-                    <label class="form-label" for="description">Description</label>
-                    <textarea class="form-control" type="text" id="description" name="review[description]" cols="30" rows="3" required></textarea>
+                    <textarea class="form-control" type="text" id="description" name="review[description]" cols="30" rows="3" required placeholder="Write your review here"></textarea>
                 </div>
                 <div class="mb-3">
-                    <button class="btn btn-success">Submit</button>
+                    <button class="btn btn-success w-100">Submit</button>
                 </div>
             </form>
         <% } %> 
@@ -82,13 +81,11 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <h6 class="card-subtitle mb-2 text-muted">By <%= review.owner.username%></h6>
-                    <h5 class="card-title">
-                        <p class="starability-result" data-rating="<%= review.rating %>"></p>
-                    </h5>
-                    <p class="card-text">Review: <%= review.description %></p>
+                    <p class="starability-result float-sm-right" data-rating="<%= review.rating %>"></p>
+                    <p class="card-text"><%= review.description %></p>
                     <% if(currentUser && review.owner.equals(currentUser._id)){ %> 
                         <form action="/houses/<%=house._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
-                            <button class="btn btn-sm btn-danger">Delete</button>
+                            <button class="btn btn-sm btn-danger">&#128465; Delete</button>
                         </form>
                     <% } %> 
                 </div>

@@ -1,0 +1,46 @@
+/* CSS for map */
+#cluster-map {
+  width: 100%;
+  height: 400px;
+}
+
+#map {
+  width: 100%;
+  height: 300px;
+}
+
+@media (max-width: 576px) { 
+  #cluster-map {
+    width: 88%;
+    height: 260px;
+  }
+}
+
+/* For houses->index */
+.shadow {
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+  box-shadow: 0 10px 6px -6px #777;
+}
+
+.img-container {
+  width: 100%;
+  max-width: 260px;
+  height: 160px;
+  padding: 10px;
+}
+.img-fit {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* for houses->show */
+.carousel-item {
+  width: 100%;
+  height: 280px;
+}
+
+p {
+  margin-bottom: 0.2rem;
+}

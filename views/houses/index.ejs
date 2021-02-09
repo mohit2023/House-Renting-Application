@@ -1,33 +1,34 @@
 <% layout('layouts/boilerplate')%>
 
-<div class="container col-md-8 offset-2">
-    <div id="map" style="width: 100%; height: 400px"></div>
-</div>
+<div id="cluster-map" class="mx-auto"></div>
 
-<h1 class="mb-3">All Houses On Rent</h1>
-<% for (let house of houses){%>
-<div class="card">
-    <div class="row mb-3">
-        <div class="col-md-4">
-            <% if(house.images.length>0){ %> 
-                <img class="img-fluid" alt="" src="<%=house.images[0].url%>">
-            <% }else{ %>
-                <img class="img-fluid" src="/images/noHouseImg.png" alt="">
-            <% } %>  
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title"><%= house.name %> </h5>
-                <p class="card-text"><%= house.description %></p>
-                <p class="card-text">
-                    <small class="text-muted"><%= house.address%></small>
-                </p>
-                <a class="btn btn-primary" href="/houses/<%=house._id%>">Show Details</a>
+<div class="card-container col-sm-8 offset-sm-2 mt-5">
+
+    <% for (let house of houses){%>
+    <div class="card mb-4 shadow">
+        <div class="row">
+            <div class="col-sm-5 d-flex flex-column justify-content-center align-items-center">
+                <div class="img-container">
+                    <% if(house.images.length>0){ %> 
+                    <img class="img-fit" alt="" src="<%=house.images[0].url%>">
+                    <% }else{ %>
+                    <img class="img-fit" src="/images/noHouseImg.png" alt="">
+                    <% } %>  
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="card-body">
+                    <h5 class="card-title">House Owner's Name: <%= house.name %></h5>
+                    <small class="text-muted">Rent per month: &#8377;<%= house.rent %></small>
+                    <p class="card-text">Address: <%= house.address%></p>
+                    <a class="btn btn-primary" href="/houses/<%=house._id%>">Show Details</a>
+                </div>
             </div>
         </div>
     </div>
+    <% }%>
+
 </div>
-<% }%>
 
 <script>
     const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
