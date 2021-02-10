@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate')%>
 <link rel="stylesheet" href="/stylesheets/star.css">
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6" id="firstDiv">
 
         <div id="houseCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -29,7 +29,7 @@
             <% } %>
         </div>
 
-        <div class="card mb-3">
+        <div class="card mb-3" id="houseCard">
             <div class="card-body">
                 <h5 class="card-title">House Owner's Name: <%= house.name%></h5>
                 <p class="card-text"><%= house.description%></p>
@@ -47,13 +47,14 @@
                 </div>
             <% } %> 
         </div>
-    </div>
-    <div class="col-md-6">
 
         <div id='map' class="mb-4"></div>
 
+    </div>
+    <div class="col-md-6">
+
         <% if(currentUser){ %> 
-            <h2 class="mb-3">Leave a Review</h2>
+            <!-- <h2 class="mb-3">Leave a Review</h2> -->
             <form action="/houses/<%= house._id %>/reviews" method="POST" novalidate class="need-validation mb-5 shadow p-3">
                 <fieldset class="starability-basic">
                     <input type="radio" id="first-rate1" name="review[rating]" value="1" />
@@ -77,22 +78,30 @@
                 </div>
             </form>
         <% } %> 
-        <% for(let review of house.reviews){ %>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-muted">By <%= review.owner.username%></h6>
-                    <p class="starability-result float-sm-right" data-rating="<%= review.rating %>"></p>
-                    <p class="card-text"><%= review.description %></p>
-                    <% if(currentUser && review.owner.equals(currentUser._id)){ %> 
-                        <form action="/houses/<%=house._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
-                            <button class="btn btn-sm btn-danger">&#128465; Delete</button>
-                        </form>
-                    <% } %> 
+        <div class="review-container mb-5"  id="reviewContainer">
+            <% for(let review of house.reviews){ %>
+                <div class="card m-3">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">By <%= review.owner.username%></h6>
+                        <p class="starability-result float-sm-right" data-rating="<%= review.rating %>"></p>
+                        <p class="card-text"><%= review.description %></p>
+                        <% if(currentUser && review.owner.equals(currentUser._id)){ %> 
+                            <form action="/houses/<%=house._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                                <button class="btn btn-sm btn-danger">&#128465; Delete</button>
+                            </form>
+                        <% } %> 
+                    </div>
                 </div>
-            </div>
-        <% } %>  
+            <% } %>  
+        </div>
     </div>
 </div>
+
+<script>
+    const houseCard = document.getElementById("houseCard");
+    console.log(houseCard);
+    document.getElementById("reviewContainer").style.maxHeight = houseCard.clientHeight +380 +"px";
+</script>
 
 <script>
     const house = <%-JSON.stringify(house)%>;

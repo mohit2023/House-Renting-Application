@@ -44,3 +44,8 @@
 p {
   margin-bottom: 0.2rem;
 }
+
+.review-container {
+  overflow-y: scroll;
+}
+

@@ -12,8 +12,10 @@ module.exports.register = async (req,res)=>{
     const registeredUser = await User.register(user, password);
     req.login(registeredUser, err => {
         if (err) return next(err);
+        const redirectUrl = req.session.returnTo || '/';
+        delete req.session.returnTo;
         req.flash('success', 'Welcome to house renting application');
-        res.redirect('/houses');
+        res.redirect(redirectUrl);
     })
   }
   catch(e){
@@ -28,13 +30,13 @@ module.exports.renderLoginForm = (req,res)=>{
 
 module.exports.login = async (req,res)=>{
   req.flash('success', 'welcome back!');
-  const redirectUrl = req.session.returnTo || '/houses';
+  const redirectUrl = req.session.returnTo || '/';
   delete req.session.returnTo;
   res.redirect(redirectUrl);
 };
 
 module.exports.logout = (req, res) => {
   req.logout();
-  req.flash('success', "Goodbye!");
-  res.redirect('/houses');
+  req.flash('success', "Bye!! Have a nice day!");
+  res.redirect('/');
 };

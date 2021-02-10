@@ -17,7 +17,7 @@
             <div class="mb-3">
                 <label class="form-label" for="rent">Rent per month</label>
                 <div class="input-group">
-                    <span class="input-group-text" id="rent-label">$</span>
+                    <span class="input-group-text" id="rent-label">&#8377;</span>
                     <input type="number" step="any" min="0" class="form-control" id="rent" placeholder="0.00" aria-label="rent" aria-describedby="rent-label" name="house[rent]" value="<%= house.rent%>" required>
                 </div>
             </div>
@@ -37,14 +37,18 @@
                 </div>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3 d-flex flex-wrap justify-content-between">
                 <% house.images.forEach(function(img, i) {  %>
-                <div class="container">
-                    <img src="<%=img.thumbnail %>" class="img-thumbnail" alt="">
-                    <div class="form-check-inline">
-                        <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
+                <div class="d-flex flex-column m-3">
+                    <div class="img-container">
+                        <img src="<%=img.thumbnail %>" class="img-thumbnail img-fit" alt="">
                     </div>
-                    <label for="image-<%=i%>">Delete?</label>
+                    <div class="mx-auto">
+                        <div class="form-check-inline">
+                            <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
+                        </div>
+                        <label for="image-<%=i%>">Delete?</label>
+                    </div>
                 </div>
                 <% })%>
             </div>

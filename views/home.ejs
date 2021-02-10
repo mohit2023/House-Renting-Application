@@ -11,7 +11,7 @@
 
 <body class="d-flex text-center text-white bg-dark">
     <div class="cover-container d-flex w-100 h-100 mb-5 p-3 mx-auto flex-column">
-        <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark mb-5">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
                     <h3 class="float-md-left">ReHo</h3>
@@ -33,16 +33,17 @@
                     </div>
                 </div>
             </div>
-          </nav>
-        <main class="px-3">
-            <h1 class="my-5">ReHo</h1>
-            <p class="lead"> Welcome to ReHo! 
+        </nav>
+        <main class="px-3 py-5">
+            <p class="lead"> Welcome to <strong>ReHo!</strong> 
               <br>
               Jump right in and explore houses on rent!
               <br>
               Feel free to share your own house or express your stay in any house!</p>
-            <a href="/houses" class="btn btn-lg btn-secondary font-weight-bold border-white bg-white">View All Houses</a>
+            <a href="/houses" class="btn btn-lg btn-secondary font-weight-bold border-white bg-white my-4">View All Houses</a>
         </main>
+
+        <%- include('./partials/flash') %>
 
         <footer class="mt-auto text-white-50">
             <p>&copy; 2021 </p>
