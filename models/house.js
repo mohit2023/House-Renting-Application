@@ -3,11 +3,11 @@ const Review = require('./review')
 
 const ImageSchema = new mongoose.Schema({
   url: {
-    type: String.fromCharCode,
+    type: String,
     required: true
   },
   filename: {
-    type: String.fromCharCode,
+    type: String,
     required: true
   }
 });
