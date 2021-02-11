@@ -1,4 +1,4 @@
-const {houseSchema,reviewSchema} = require('./validationSchema');
+const {houseSchema,reviewSchema,userRegistrationSchema} = require('./validationSchema');
 const AppError = require('./utils/AppError');
 const wrapAsync = require('./utils/wrapAsync');
 const House = require('./models/house');
@@ -52,6 +52,16 @@ module.exports.validateHouse = (req,res,next)=> {
 
 module.exports.validateReview = (req,res,next)=> {
   const {error} = reviewSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map(el => el.message).join(',')
+    throw new AppError(msg, 400)
+  } else {
+    next();
+  }
+}
+
+module.exports.validateUser = (req,res,next)=> {
+  const {error} = userRegistrationSchema.validate(req.body);
   if (error) {
     const msg = error.details.map(el => el.message).join(',')
     throw new AppError(msg, 400)

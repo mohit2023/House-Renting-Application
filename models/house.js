@@ -2,8 +2,14 @@ const mongoose = require('mongoose');
 const Review = require('./review')
 
 const ImageSchema = new mongoose.Schema({
-  url: String,
-  filename: String
+  url: {
+    type: String.fromCharCode,
+    required: true
+  },
+  filename: {
+    type: String.fromCharCode,
+    required: true
+  }
 });
 
 ImageSchema.virtual('thumbnail').get(function () {
@@ -61,6 +67,11 @@ houseSchema.virtual('properties.popUpMarkup').get(function () {
 houseSchema.post('findOneAndDelete', async(house)=>{
   if(house){
     await Review.deleteMany({_id : {$in: house.reviews}});
+    if (house.images) {
+      for (let file of house.images) {
+          await cloudinary.uploader.destroy(file.filename);
+      }
+    }
   }
 });
 

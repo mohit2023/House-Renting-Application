@@ -40,15 +40,15 @@
             </ul>
             <% if(currentUser && house.owner.equals(currentUser._id)){ %> 
                 <div class="card-body d-flex justify-content-between">
-                    <a class="card-link btn btn-info" href="/houses/<%=house._id%>/edit">Edit</a>
+                    <a class="card-link btn btn-info" href="/houses/<%=house._id%>/edit">✎ Edit</a>
                     <form class="d-inline" action="/houses/<%=house._id%>?_method=DELETE" method="POST">
-                        <button class="btn btn-danger">&#128465;Delete</button>
+                        <button class="btn btn-danger">&#128465; Delete</button>
                     </form>
                 </div>
             <% } %> 
         </div>
 
-        <div id='map' class="mb-4"></div>
+        <div id='map' class="mb-4 shadow"></div>
 
     </div>
     <div class="col-md-6">

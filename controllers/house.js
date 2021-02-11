@@ -46,9 +46,12 @@ module.exports.renderUpdateHouseForm = async (req,res)=>{
 module.exports.updateHouse = async (req,res) =>{
   const {id} = req.params;
   const imgs = req.files.map(f => ({url: f.path,filename: f.filename}));
-  const house = await House.findByIdAndUpdate(id,{...req.body.house,$push: { "images": { $each: imgs}}});
-  //house.images.push(...imgs);
-  //await house.save();
+  const geoData = await geocoder.forwardGeocode({
+    query: req.body.house.address,
+    limit: 1
+  }).send();
+  const geom = geoData.body.features[0].geometry;
+  const house = await House.findByIdAndUpdate(id,{...req.body.house,$push: { "images": { $each: imgs}},geometry:geom},{new:true});
   if (req.body.deleteImages) {
     for (let filename of req.body.deleteImages) {
         await cloudinary.uploader.destroy(filename);

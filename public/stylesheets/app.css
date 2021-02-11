@@ -1,3 +1,7 @@
+body {
+  background-color: aliceblue;
+}
+
 /* CSS for map */
 #cluster-map {
   width: 100%;

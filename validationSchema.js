@@ -39,3 +39,9 @@ module.exports.reviewSchema = Joi.object({
     rating: Joi.number().required().min(1).max(5)
   }).required()
 });
+
+module.exports.userRegistrationSchema = Joi.object({
+  username: Joi.string().required().escapeHTML(),
+  password: Joi.string().required().escapeHTML(),
+  email: Joi.string().email().required().escapeHTML()
+});
