@@ -9,6 +9,10 @@ const reviewContainer = document.getElementById('reviewContainer');
 
 function populateReviews(arr){
   reviewContainer.innerHTML = '';
+  if(currentUser){
+    currentUser=JSON.parse(currentUser);
+  }
+  
   for(let review of house.reviews){
     if(!arr.includes(review.rating)){
       continue;
@@ -17,8 +21,9 @@ function populateReviews(arr){
     container.classList.add('card');
     container.classList.add('mr-3');
     container.classList.add('my-3');
-    let deleteBtn;
-    if(currentUser && review.owner._id===currentUser._id){ 
+    
+    let deleteBtn='';
+    if(currentUser && review.owner._id===currentUser["_id"]){ 
       deleteBtn = `<form action="/houses/${house._id}/reviews/${review._id}?_method=DELETE" method="POST">
         <button class="btn btn-sm btn-danger">&#128465; Delete</button>
       </form>`;

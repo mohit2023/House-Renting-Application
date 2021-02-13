@@ -26,7 +26,15 @@ const Joi = BaseJoi.extend(extension);
 module.exports.houseSchema = Joi.object({
   house: Joi.object({
     name: Joi.string().required().escapeHTML(),
-    address: Joi.string().required().escapeHTML(),
+    availableStatus: Joi.boolean(),
+    address: Joi.object({
+      line1: Joi.string().required().escapeHTML(),
+      line2: Joi.string().allow('').escapeHTML(),
+      city: Joi.string().required().escapeHTML(),
+      state: Joi.string().required().escapeHTML(),
+      postalCode: Joi.string().required().escapeHTML(),
+      country: Joi.string().required().escapeHTML(),
+    }).required(),
     description: Joi.string().allow('').escapeHTML(),
     rent: Joi.number().required().min(0)
   }).required(),

@@ -7,10 +7,33 @@
                 <label class="form-label" for="name">House Owner Name</label>
                 <input class="form-control" type="text" id="name" name="house[name]" required>
             </div>
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label class="form-label" for="address">Address</label>
                 <textarea class="form-control" type="text" id="address" name="house[address]" required></textarea>
-            </div>
+            </div> -->
+
+            <fieldset class="row mb-3">
+                <label>Address Details</label>
+                <div class="mb-2">
+                    <input type="text" class="form-control" name="house[address][line1]" placeholder="Address Line 1" required>
+                </div>
+                <div class="mb-2">
+                    <input type="text" class="form-control" name="house[address][line2]" placeholder="Address Line 2">
+                </div>
+                <div class="mb-2 col-sm-6">
+                    <input type="text" class="form-control" name="house[address][city]" placeholder="City" required>
+                </div>
+                <div class="mb-2 col-sm-6">
+                    <input type="text" class="form-control" name="house[address][state]" placeholder="State" required>
+                </div>
+                <div class="mb-2 col-sm-6">
+                    <input type="text" class="form-control" name="house[address][postalCode]" placeholder="Postal Code" required>
+                </div>
+                <div class="mb-2 col-sm-6">
+                    <input type="text" class="form-control" name="house[address][country]" placeholder="Country" required>
+                </div>
+
+            </fieldset>
             
             <div class="mb-3">
                 <label class="form-label" for="rent">Rent per month</label>
@@ -33,6 +56,11 @@
                         <span class="form-file-button">Browse</span>
                     </label>
                 </div>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" name="house[availableStatus]" value="true">
+                <label class="form-check-label" for="availableStatus">Currently Available on Rent</label>
             </div>
 
             <div class="mb-3">

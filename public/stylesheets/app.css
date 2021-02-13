@@ -1,5 +1,18 @@
+html {
+  height: 100%;
+}
+
 body {
   background-color: aliceblue;
+  min-height: 100%;
+  position: relative;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 /* CSS for map */
@@ -30,7 +43,7 @@ body {
 .img-container {
   width: 100%;
   max-width: 260px;
-  height: 160px;
+  height: 180px;
   padding: 10px;
 }
 .img-fit {
@@ -53,15 +66,22 @@ p {
   overflow-y: scroll;
 }
 
-.current-active {
-  background-color: greenyellow;
-  color: black;
+button.current-active {
+  background-color: #28a745;
+  color: white;
 }
-button {
+
+.button {
   background-color: blue;
   color: white;
   border: solid 1px gainsboro;
 }
+
 button:hover {
   border: 1px solid black;
+}
+
+.caution-text {
+  color: red;
+  font-size: small;
 }

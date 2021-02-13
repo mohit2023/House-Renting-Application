@@ -21,7 +21,10 @@ function populateHouses(min,max){
       imgDivText = `<img class="img-fit" alt="" src="${house.images[0].url}">`;
     }else{ 
       imgDivText = `<img class="img-fit" src="/images/noHouseImg.png" alt="">`
-    } 
+    }
+    let address = `${house.address.line1},<br>`;
+    if(house.address.line2){address+= `${house.address.line2}, <br>`;} 
+    address+=`${house.address.city}, ${house.address.state}, <br>${house.address.country} -${house.address.postalCode}</br>`;
     container.innerHTML = `
     <div class="row">
         <div class="col-sm-5 d-flex flex-column justify-content-center align-items-center">
@@ -29,11 +32,13 @@ function populateHouses(min,max){
                 imgDivText+ 
             `</div>
         </div>
-        <div class="col-sm-7 p-3">
+        <div class="col-sm-7">
             <div class="card-body">
                 <h5 class="card-title">House Owner's Name: ${house.name}</h5>
                 <small class="text-muted">Rent per month: &#8377;${house.rent}</small>
-                <p class="card-text">Address: ${house.address}</p>
+                <p class="card-text">
+                  ${address}
+                </p>
                 <a class="btn btn-primary" href="/houses/${house._id}">Show Details</a>
             </div>
         </div>

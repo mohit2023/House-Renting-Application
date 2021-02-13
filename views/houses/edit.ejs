@@ -9,11 +9,34 @@
                 <input class="form-control" type="text" id="name" name="house[name]" value="<%= house.name%>" required>
             </div>
 
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label class="form-label" for="address">Address</label>
                 <textarea class="form-control" type="text" id="address" name="house[address]" required><%= house.address %></textarea>
-            </div>
+            </div> -->
             
+            <fieldset class="row mb-3">
+                <label>Address Details</label>
+                <div class="mb-2">
+                    <input type="text" class="form-control" name="house[address][line1]" placeholder="Address Line 1" value="<%=house.address.line1%>" required>
+                </div>
+                <div class="mb-2">
+                    <input type="text" class="form-control" name="house[address][line2]" placeholder="Address Line 2" value="<%=house.address.line2%>">
+                </div>
+                <div class="mb-2 col-sm-6">
+                    <input type="text" class="form-control" name="house[address][city]" placeholder="City" value="<%=house.address.city%>" required>
+                </div>
+                <div class="mb-2 col-sm-6">
+                    <input type="text" class="form-control" name="house[address][state]" placeholder="State" value="<%=house.address.state%>" required>
+                </div>
+                <div class="mb-2 col-sm-6">
+                    <input type="text" class="form-control" name="house[address][postalCode]" placeholder="Postal Code" value="<%=house.address.postalCode%>" required>
+                </div>
+                <div class="mb-2 col-sm-6">
+                    <input type="text" class="form-control" name="house[address][country]" placeholder="Country" value="<%=house.address.country%>" required>
+                </div>
+
+            </fieldset>
+
             <div class="mb-3">
                 <label class="form-label" for="rent">Rent per month</label>
                 <div class="input-group">
@@ -51,6 +74,11 @@
                     </div>
                 </div>
                 <% })%>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" <%= house.availableStatus?'checked':'' %> class="form-check-input" name="house[availableStatus]" value="true">
+                <label class="form-check-label" for="availableStatus">Currently Available on Rent</label>
             </div>
 
             <div class="mb-3">

@@ -1,3 +1,4 @@
+const { boolean } = require('joi');
 const mongoose = require('mongoose');
 const Review = require('./review')
 
@@ -24,13 +25,38 @@ const houseSchema = new mongoose.Schema({
     required: true
   },
   address: {
-    type: String,
-    required: true
+    line1: {
+      type: String,
+      required: true
+    },
+    line2: {
+      type: String,
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    state: {
+      type: String,
+      required: true
+    },
+    postalCode: {
+      type: String,
+      required: true
+    },
+    country: {
+      type: String,
+      required: true
+    }
   },
   rent: {
     type: String,
     required: true,
     min: 0
+  },
+  availableStatus: {
+    type: Boolean,
+    default: false
   },
   geometry: {
     type: {

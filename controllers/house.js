@@ -3,6 +3,18 @@ const { cloudinary } = require("../cloudinary");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
+const iso = require('iso-3166-1');
+
+async function forwardGeocding(address) {
+  const geoData = await geocoder.forwardGeocode({
+    query: address.line1.replace('-','') +" "+ address.postalCode +" "+ address.city +" "+ address.state,
+    countries: [iso.whereCountry(address.country).alpha2],
+    limit: 1
+  }).send();
+  return geoData.body.features[0].geometry;
+}
+
+
 
 module.exports.showAllHouses = async (req,res) =>{
   const houses = await House.find({}).populate('popupText');
@@ -14,12 +26,13 @@ module.exports.renderNewHouseForm = (req,res) =>{
 };
 
 module.exports.createHouse = async (req,res) =>{
-  const geoData = await geocoder.forwardGeocode({
-    query: req.body.house.address,
-    limit: 1
-  }).send();
+  // const geoData = await geocoder.forwardGeocode({
+  //   query: req.body.house.address,
+  //   limit: 1
+  // }).send();
   const house = new House(req.body.house);
-  house.geometry = geoData.body.features[0].geometry;
+  //house.geometry = geoData.body.features[0].geometry;
+  house.geometry = await forwardGeocding(req.body.house.address);
   house.images = req.files.map(f => ({url: f.path,filename: f.filename}));
   house.owner = req.user._id;
   await house.save();
@@ -44,13 +57,17 @@ module.exports.renderUpdateHouseForm = async (req,res)=>{
 };
 
 module.exports.updateHouse = async (req,res) =>{
+  if(!req.body.house.availableStatus){
+    req.body.house.availableStatus=false;
+  }
   const {id} = req.params;
   const imgs = req.files.map(f => ({url: f.path,filename: f.filename}));
-  const geoData = await geocoder.forwardGeocode({
-    query: req.body.house.address,
-    limit: 1
-  }).send();
-  const geom = geoData.body.features[0].geometry;
+  // const geoData = await geocoder.forwardGeocode({
+  //   query: req.body.house.address,
+  //   limit: 1
+  // }).send();
+  //const geom = geoData.body.features[0].geometry;
+  const geom = await forwardGeocding(req.body.house.address);
   const house = await House.findByIdAndUpdate(id,{...req.body.house,$push: { "images": { $each: imgs}},geometry:geom},{new:true});
   if (req.body.deleteImages) {
     for (let filename of req.body.deleteImages) {
