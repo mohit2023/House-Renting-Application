@@ -1,6 +1,7 @@
 const { boolean } = require('joi');
 const mongoose = require('mongoose');
-const Review = require('./review')
+const Review = require('./review');
+const { cloudinary } = require("../cloudinary");
 
 const ImageSchema = new mongoose.Schema({
   url: {

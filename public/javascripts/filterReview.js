@@ -9,9 +9,10 @@ const reviewContainer = document.getElementById('reviewContainer');
 
 function populateReviews(arr){
   reviewContainer.innerHTML = '';
-  if(currentUser){
-    currentUser=JSON.parse(currentUser);
-  }
+  // console.log("should be string",currentUser);
+  // if(currentUser){
+  //   currentUser=JSON.parse(currentUser);
+  // }
   
   for(let review of house.reviews){
     if(!arr.includes(review.rating)){
@@ -47,6 +48,9 @@ function populateReviews(arr){
 }
 
 
+if(currentUser){
+  currentUser=JSON.parse(currentUser);
+}
 populateReviews([1,2,3,4,5]);
 starAll.classList.add('current-active');
 
