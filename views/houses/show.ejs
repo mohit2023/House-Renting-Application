@@ -78,9 +78,9 @@
                 </div>
             </form>
         <% } %> 
-        <div class="review-container mb-5"  id="reviewContainer">
+        <div class="review-container mb-5 ml-3"  id="reviewContainer">
             <% for(let review of house.reviews){ %>
-                <div class="card m-3">
+                <div class="card my-3 mr-3">
                     <div class="card-body">
                         <h6 class="card-subtitle mb-2 text-muted">By <%= review.owner.username%></h6>
                         <p class="starability-result float-sm-right" data-rating="<%= review.rating %>"></p>

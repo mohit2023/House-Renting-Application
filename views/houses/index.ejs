@@ -1,34 +1,30 @@
 <% layout('layouts/boilerplate')%>
 
-<div id="cluster-map" class="mx-auto shadow"></div>
+<div id="cluster-map" class="mx-auto shadow mb-5"></div>
 
-<div class="card-container col-sm-8 offset-sm-2 mt-5">
-
-    <% for (let house of houses){%>
-    <div class="card mb-4 shadow">
-        <div class="row">
-            <div class="col-sm-5 d-flex flex-column justify-content-center align-items-center">
-                <div class="img-container">
-                    <% if(house.images.length>0){ %> 
-                    <img class="img-fit" alt="" src="<%=house.images[0].url%>">
-                    <% }else{ %>
-                    <img class="img-fit" src="/images/noHouseImg.png" alt="">
-                    <% } %>  
-                </div>
-            </div>
-            <div class="col-sm-7">
-                <div class="card-body">
-                    <h5 class="card-title">House Owner's Name: <%= house.name %></h5>
-                    <small class="text-muted">Rent per month: &#8377;<%= house.rent %></small>
-                    <p class="card-text">Address: <%= house.address%></p>
-                    <a class="btn btn-primary" href="/houses/<%=house._id%>">Show Details</a>
-                </div>
-            </div>
+<form id="searchForm" class="row col-sm-8 offset-sm-2 py-3">
+    <div class="col-12 text-center mb-3">
+        <strong>Search Houses By Rent</strong>
+    </div>
+    <div class="col-5">
+        <div class="input-group">
+            <span class="input-group-text" id="rent-label">&#8377;</span>
+            <input type="number" step="any" min="0" class="form-control" id="minRent" aria-label="minRent" aria-describedby="min-rent-label" name="minRent" placeholder="Min">
         </div>
     </div>
-    <% }%>
+    <div class="col-5">
+        <div class="input-group">
+            <span class="input-group-text" id="rent-label">&#8377;</span>
+            <input type="number" step="any" min="0" class="form-control" id="maxRent" aria-label="maxRent" aria-describedby="max-rent-label" name="maxRent" placeholder="Max">
+        </div>
+    </div>
+    <div class="col-2">
+      <button type="submit" class="btn btn-primary">&#128269;</button>
+    </div>
+</form>
 
-</div>
+
+<div id="housesContainer" class="card-container col-sm-8 offset-sm-2 mt-5"></div>
 
 <script>
     const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
@@ -36,3 +32,5 @@
 </script>
 
 <script src="/javascripts/clusterMap.js"></script>
+<script src="/javascripts/search.js"></script>
+
