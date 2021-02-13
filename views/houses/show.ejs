@@ -78,34 +78,33 @@
                 </div>
             </form>
         <% } %> 
-        <div class="review-container mb-5 ml-3"  id="reviewContainer">
-            <% for(let review of house.reviews){ %>
-                <div class="card my-3 mr-3">
-                    <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-muted">By <%= review.owner.username%></h6>
-                        <p class="starability-result float-sm-right" data-rating="<%= review.rating %>"></p>
-                        <p class="card-text"><%= review.description %></p>
-                        <% if(currentUser && review.owner.equals(currentUser._id)){ %> 
-                            <form action="/houses/<%=house._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
-                                <button class="btn btn-sm btn-danger">&#128465; Delete</button>
-                            </form>
-                        <% } %> 
-                    </div>
-                </div>
-            <% } %>  
+        <div class="review-filter m-3">
+            <div class="w-100 text-center mb-3">
+                <strong>Reviews</strong>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button id="star-all" >All</button>
+                <button id="star-1">1&#11088;</button>
+                <button id="star-2">2&#11088;</button>
+                <button id="star-3">3&#11088;</button>
+                <button id="star-4">4&#11088;</button>
+                <button id="star-5">5&#11088;</button>
+            </div>
         </div>
+        <div id="reviewContainer" class="review-container mb-5 ml-3"  id="reviewContainer"></div>
     </div>
 </div>
 
 <script>
     const houseCard = document.getElementById("houseCard");
-    console.log(houseCard);
-    document.getElementById("reviewContainer").style.maxHeight = houseCard.clientHeight +380 +"px";
+    document.getElementById("reviewContainer").style.maxHeight = houseCard.clientHeight +350 +"px";
 </script>
 
 <script>
     const house = <%-JSON.stringify(house)%>;
     const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+    let currentUser = <%-JSON.stringify(currentUser)%>;
 </script>
 
 <script src="/javascripts/showPageMap.js"></script>
+<script src="/javascripts/filterReview.js"></script>

@@ -53,3 +53,15 @@ p {
   overflow-y: scroll;
 }
 
+.current-active {
+  background-color: greenyellow;
+  color: black;
+}
+button {
+  background-color: blue;
+  color: white;
+  border: solid 1px gainsboro;
+}
+button:hover {
+  border: 1px solid black;
+}
